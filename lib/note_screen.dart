@@ -10,7 +10,10 @@ class NoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(data.title),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [Text(data.title), PinButton()],
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -29,5 +32,27 @@ class NoteScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class PinButton extends StatefulWidget {
+  @override
+  State<PinButton> createState() => _PinButtonState();
+}
+
+class _PinButtonState extends State<PinButton> {
+  bool isPin = false;
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          setState(() {
+            isPin = !isPin;
+          });
+        },
+        icon: Icon(
+          isPin ? Icons.star : Icons.star_border,
+          color: Colors.yellow,
+        ));
   }
 }
