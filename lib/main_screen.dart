@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note/add_note.dart';
 import 'package:flutter_note/model/note_data.dart';
 import 'note_screen.dart';
 
@@ -6,20 +7,33 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Note',
-          ),
-        ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            if (constraints.maxWidth <= 790) {
-              return NoteMobilePage();
-            } else {
-              return NoteWebPage();
-            }
-          },
-        ));
+      appBar: AppBar(
+        title: Text("Note"),
+      ),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth <= 790) {
+            return NoteMobilePage();
+          } else {
+            return NoteWebPage();
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return AddNote();
+              },
+            ),
+          );
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 }
 
@@ -32,7 +46,7 @@ class NoteWebPage extends StatelessWidget {
         crossAxisCount: 4,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        children: NoteDataList.map(
+        children: noteDataList.map(
           (note) {
             return InkWell(
               onTap: () {
@@ -81,7 +95,7 @@ class NoteMobilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        final NoteData data = NoteDataList[index];
+        final NoteData data = noteDataList[index];
 
         return Center(
           child: Container(
@@ -126,7 +140,20 @@ class NoteMobilePage extends StatelessWidget {
           ),
         );
       },
-      itemCount: NoteDataList.length,
+      itemCount: noteDataList.length,
+    );
+  }
+}
+
+class ButtonAddNote extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {},
+      icon: Icon(
+        Icons.add,
+        color: Colors.white,
+      ),
     );
   }
 }

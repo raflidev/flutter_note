@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_note/main_screen.dart';
 import 'package:flutter_note/model/note_data.dart';
 
 class NoteScreen extends StatelessWidget {
@@ -31,6 +32,23 @@ class NoteScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Data Terhapus (Testing)')),
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return MainScreen();
+              },
+            ),
+          );
+        },
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.delete),
+      ),
     );
   }
 }
@@ -45,14 +63,15 @@ class _PinButtonState extends State<PinButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: () {
-          setState(() {
-            isPin = !isPin;
-          });
-        },
-        icon: Icon(
-          isPin ? Icons.star : Icons.star_border,
-          color: Colors.yellow,
-        ));
+      onPressed: () {
+        setState(() {
+          isPin = !isPin;
+        });
+      },
+      icon: Icon(
+        isPin ? Icons.star : Icons.star_border,
+        color: Colors.yellow,
+      ),
+    );
   }
 }

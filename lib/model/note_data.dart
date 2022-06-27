@@ -8,7 +8,7 @@ class NoteData {
   });
 }
 
-var NoteDataList = [
+var noteDataList = [
   NoteData(
     title: "Resep Soto",
     text:
